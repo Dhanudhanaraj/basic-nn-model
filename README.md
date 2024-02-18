@@ -43,25 +43,105 @@ Plot the performance plot
 Evaluate the model with the testing data.
 
 ## PROGRAM
+```
+## NAME:DHANUMALYA.D
+## REGISTER NUMBER:212222230030
 
-Include your code here
+### To Read CSV file from Google Drive :
 
+from google.colab import auth
+import gspread
+from google.auth import default
+import pandas as pd
+
+## To train and test
+from sklearn.model_selection import train_test_split
+
+## To scale
+from sklearn.preprocessing import MinMaxScaler
+
+## To create a neural network model
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+### Authenticate User:
+
+auth.authenticate_user()
+creds, _ = default()
+gc = gspread.authorize(creds)
+
+### Open the Google Sheet and convert into DataFrame :
+
+worksheet = gc.open('Deep Learning').sheet1
+rows = worksheet.get_all_values()
+df = pd.DataFrame(rows[1:], columns = rows[0])
+
+df = df.astype({'Input':'float'})
+df = df.astype({'Output':'float'})
+
+df
+
+x=df[['Input']].values
+y=df[['Output']].values
+
+x
+
+y
+
+x_train,x_test,y_train,y_test= train_test_split(x,y,test_size = 0.4, random_state =35)
+
+Scaler = MinMaxScaler()
+Scaler.fit(x_train)
+
+X_train1 = Scaler.transform(x_train)
+
+#Create the model
+ai_brain = Sequential([
+    Dense(8,activation='relu'),
+    Dense(10,activation='relu'),
+    Dense(1)
+])
+
+#Compile the model
+ai_brain.compile(optimizer = 'rmsprop' , loss = 'mse')
+
+# Fit the model
+ai_brain.fit(X_train1 , y_train,epochs = 2005)
+
+loss_df = pd.DataFrame(ai_brain.history.history)
+
+loss_df.plot()
+
+X_test1 =Scaler.transform(x_test)
+
+ai_brain.evaluate(X_test1,y_test)
+
+X_n1=[[4]]
+
+X_n1_1=Scaler.transform(X_n1)
+
+ai_brain.predict(X_n1_1)
+```
 ## Dataset Information
-
-Include screenshot of the dataset
+![Screenshot 2024-02-18 211218](https://github.com/Dhanudhanaraj/basic-nn-model/assets/119218812/f8fc3950-7b2b-4e49-9a80-1542bdd676ff)
 
 ## OUTPUT
 
 ### Training Loss Vs Iteration Plot
+![Screenshot 2024-02-18 210448](https://github.com/Dhanudhanaraj/basic-nn-model/assets/119218812/b92a7eb6-dc6a-4403-99ce-cc75e1a5201b)
 
-Include your plot here
 
 ### Test Data Root Mean Squared Error
+![Screenshot 2024-02-18 210438](https://github.com/Dhanudhanaraj/basic-nn-model/assets/119218812/6ff22cc2-a8c0-4752-8a1d-bbe0667cbff1)
 
-Find the test data root mean squared error
+![Screenshot 2024-02-18 210539](https://github.com/Dhanudhanaraj/basic-nn-model/assets/119218812/7d6daed1-49b5-4382-8fc0-35c96f3f3cb5)
+
 
 ### New Sample Data Prediction
+![Screenshot 2024-02-18 210556](https://github.com/Dhanudhanaraj/basic-nn-model/assets/119218812/5ae29b1b-ef3b-4d1f-b41e-30e5e2a0fc01)
 
-Include your sample input and output here
+
 
 ## RESULT
+
+Thus a neural network regression model for the given dataset is written and executed successfully
