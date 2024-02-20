@@ -14,8 +14,7 @@ First import the libraries which we will going to use and Import the dataset and
 
 ## Neural Network Model
 
-![image](https://github.com/Dhanudhanaraj/basic-nn-model/assets/119218812/e8e1b995-aeca-471e-8696-0122fa0f799c)
-
+![image](https://github.com/Dhanudhanaraj/basic-nn-model/assets/119218812/d3f2c4e7-350e-41fd-b57c-5daae9200396)
 
 ## DESIGN STEPS
 
@@ -84,7 +83,7 @@ df = pd.DataFrame(rows[1:], columns = rows[0])
 df = df.astype({'Input':'float'})
 df = df.astype({'Output':'float'})
 
-df
+df.head()
 
 x=df[['Input']].values
 y=df[['Output']].values
@@ -102,8 +101,8 @@ X_train1 = Scaler.transform(x_train)
 
 #Create the model
 ai_brain = Sequential([
-    Dense(8,activation='relu'),
-    Dense(10,activation='relu'),
+    Dense(7,activation='relu'),
+    Dense(14,activation='relu'),
     Dense(1)
 ])
 
@@ -111,7 +110,7 @@ ai_brain = Sequential([
 ai_brain.compile(optimizer = 'rmsprop' , loss = 'mse')
 
 # Fit the model
-ai_brain.fit(X_train1 , y_train,epochs = 2005)
+ai_brain.fit(X_train1 , y_train,epochs = 3000)
 
 loss_df = pd.DataFrame(ai_brain.history.history)
 
@@ -121,29 +120,27 @@ X_test1 =Scaler.transform(x_test)
 
 ai_brain.evaluate(X_test1,y_test)
 
-X_n1=[[4]]
+X_n1=[[11]]
 
 X_n1_1=Scaler.transform(X_n1)
 
 ai_brain.predict(X_n1_1)
 ```
 ## Dataset Information
-![Screenshot 2024-02-18 211218](https://github.com/Dhanudhanaraj/basic-nn-model/assets/119218812/f8fc3950-7b2b-4e49-9a80-1542bdd676ff)
+
 
 ## OUTPUT
 
 ### Training Loss Vs Iteration Plot
-![Screenshot 2024-02-18 210448](https://github.com/Dhanudhanaraj/basic-nn-model/assets/119218812/b92a7eb6-dc6a-4403-99ce-cc75e1a5201b)
+
 
 
 ### Test Data Root Mean Squared Error
-![Screenshot 2024-02-18 210438](https://github.com/Dhanudhanaraj/basic-nn-model/assets/119218812/6ff22cc2-a8c0-4752-8a1d-bbe0667cbff1)
 
-![Screenshot 2024-02-18 210539](https://github.com/Dhanudhanaraj/basic-nn-model/assets/119218812/7d6daed1-49b5-4382-8fc0-35c96f3f3cb5)
 
 
 ### New Sample Data Prediction
-![Screenshot 2024-02-18 210556](https://github.com/Dhanudhanaraj/basic-nn-model/assets/119218812/5ae29b1b-ef3b-4d1f-b41e-30e5e2a0fc01)
+
 
 
 
